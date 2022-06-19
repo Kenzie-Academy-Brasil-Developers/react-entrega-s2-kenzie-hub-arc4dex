@@ -14,7 +14,7 @@
     "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-hook-form": "v5",
+    "react-hook-form": "^7.32.1",
     "react-router-dom": "5",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",

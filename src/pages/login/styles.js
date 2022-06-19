@@ -40,6 +40,8 @@ export const Container = styled.div`
     font-weight: 600;
 
     color: var(--grey1);
+
+    margin-top: 10px;
   }
 `
 export const ContainerImg = styled.div`
