@@ -61,6 +61,41 @@ export const Container = styled.div`
     margin-bottom: 3px;
   }
 
+  span{
+    width: 98%;
+    color: #e63946;
+    font-size: 10px;
+
+    text-align: left;
+
+    margin: 0;
+  }
+
+  select{
+
+    width: 100%;
+    height: 2.8em;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    padding: 5px;
+
+    border-radius: 4px;
+    border: none;
+
+    background-color: var(--grey2);
+    color: #FFFFFF;
+    
+    margin-top: 5px;
+    margin-bottom: 20px;
+  }
+
+  option{
+    font-size: 14px;
+    border-style: none;
+  }
+
 `
 
 export const FormCadastro = styled.form`
@@ -71,4 +106,5 @@ export const FormCadastro = styled.form`
   width: 100%;
 
   padding: 20px;
+
 `

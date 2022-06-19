@@ -7,7 +7,6 @@ function Home(){
 
   return(
     <>
-   
      <Header children='Sair'/>
       <Container>
         <MiniCard/>

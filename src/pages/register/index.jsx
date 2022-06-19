@@ -1,9 +1,14 @@
+import { useState } from "react"
 import Form from "../../components/form"
 
 function Register(){
 
+  const [ bancoDados, setBancoDados ] = useState([])
+
+  console.log(bancoDados)
+
   return (
-    <Form/>
+    <Form bancoDados = {bancoDados} setBancoDados = {setBancoDados}/>
   )
 }
 

@@ -9,8 +9,16 @@ import * as yup from 'yup';
 import Button from "../../components/button";
 import { FormCadastro } from "../../components/form/styles";
 import InputForm from "../../components/input";
+import { ButtonLogin } from "../../components/header/styles";
+import { useHistory } from "react-router-dom";
 
 function PageLogin(){
+
+  const history = useHistory()
+
+  function handlePage(){
+    return history.push('/register')
+  }
 
   const formSchema = yup.object().shape({
     email: yup
@@ -53,7 +61,8 @@ function PageLogin(){
           <Button type='submit' color='true'>Entrar</Button>
 
           <p>Ainda não possui uma conta?</p>
-          <Button color='true' >Cadastre-se</Button>
+
+          <Button color='true' onClick={handlePage}>Cadastre-se</Button>
           
         </FormCadastro>
       </Container>
