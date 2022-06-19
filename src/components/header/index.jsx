@@ -12,7 +12,7 @@ function Header({children, width, props}){
    if(props === 'login'){
     return history.push('/login')
    } 
-  }
+}
 
   return(
     <Container>
