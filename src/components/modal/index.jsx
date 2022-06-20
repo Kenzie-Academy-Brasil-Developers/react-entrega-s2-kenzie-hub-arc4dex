@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import Api from "../../services/api";
 import { useState } from "react";
 
-function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser, setTechsUser, onSubmitFunction, modal, setModal}){
+function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser, setTechsUser, onSubmitFunction, modal, setModal, setEditedTechModal}){
 
   const formSchema = yup.object().shape({
     title: yup
@@ -28,7 +28,11 @@ function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser,
   })
 
   function closeModal(){
-    setModal(false)
+    if(modal){
+      setModal(false)
+    } else {
+      setEditedTechModal(false)
+    }
   }
 
   return(

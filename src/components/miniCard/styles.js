@@ -26,7 +26,7 @@ export const Container = styled.ul`
     align-items: center;
   }
 
-  div{
+  .containerTech{
     display: flex;
   }
 
