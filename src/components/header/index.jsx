@@ -6,8 +6,6 @@ function Header({children, width, props}){
 
   const history = useHistory()
 
-  console.log(history)
-
   const handleHistory = () => {
    if(props === 'login'){
     return history.push('/login')

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.ul`
   width: 100%;
   height: 55px;
 
@@ -14,18 +14,28 @@ export const Container = styled.div`
 
   border-radius: 5px;
 
+  margin-bottom: 10px;
+
   cursor: pointer;
+
+  li{
+    width: 100%;
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+  }
 
   div{
     display: flex;
   }
 
+ 
   h1{
     font-size: 13px;
     font-weight: 700;
 
     color: #ffffff;
-
   }
 
   h3{

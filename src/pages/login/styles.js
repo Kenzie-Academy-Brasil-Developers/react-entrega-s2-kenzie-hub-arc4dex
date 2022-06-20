@@ -35,6 +35,16 @@ export const Container = styled.div`
     color: #F8F9FA;
   }
 
+  span{
+    width: 98%;
+    color: #e63946;
+    font-size: 10px;
+
+    text-align: left;
+
+    margin-bottom: 3px;
+  }
+
   p{
     font-size: 12px;
     font-weight: 600;
@@ -52,4 +62,5 @@ export const ContainerImg = styled.div`
     align-items: center;
 
     margin-bottom: 35px;
+    margin-top: 80px;
 `

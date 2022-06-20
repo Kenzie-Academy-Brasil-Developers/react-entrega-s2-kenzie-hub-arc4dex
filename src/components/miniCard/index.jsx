@@ -1,17 +1,21 @@
 import { Container } from "./styles"
 import Trash from '../../img/trash.svg'
 
-function MiniCard(){
-
+function MiniCard({techs}){
+  
   return(
     <>
-      <Container>
-        <h2>React Js</h2>
-        <div>
-        <h3>Intermediario</h3>
-        <img src={Trash} alt="Lixeira" />
-        </div>
-      </Container>
+        {techs.map((tech) => {
+          return <Container>
+            <li key={tech.id}>
+              <h2>{tech.title}</h2>
+              <div>
+                 <h3>{tech.status}</h3>
+                <img src={Trash} alt="Lixeira" />
+              </div>
+            </li>
+          </Container>
+        })} 
     </>
   )
 }

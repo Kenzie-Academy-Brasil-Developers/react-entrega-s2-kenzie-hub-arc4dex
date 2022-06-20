@@ -22,7 +22,7 @@ export default createGlobalStyle`
         color: #ffffff;
 
         width: 100%;
-        height: 100vh;
+        height: auto;
 
         display: flex;
         justify-content: center;

@@ -10,8 +10,7 @@ function App() {
   
   return (
     <>
-{/*      <Modal titulo='Cadastrar Tecnologia' tecnologia='Nome' placeholderTech = 'Digite a tecnologia' nivel='Selecionar status' />
- */}      <GlobalStyle/>
+    <GlobalStyle/>
       <Routes bancoDados = { bancoDados } setBancoDados = { setBancoDados }/>
     </>
   );

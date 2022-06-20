@@ -9,17 +9,17 @@ import Header from '../header';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
-import { useState } from 'react';
+import Api from '../../services/api';
 
 function Form({ bancoDados ,setBancoDados }){
 
-  const [ valorSelect, setValorSelect ] = useState()
-
-  
   const formSchema = yup.object().shape({
-    password: yup
+    name: yup
       .string()
       .required('Nome Obrigatório'),
+    password: yup
+      .string()
+      .required('Senha obrigatória'),
     confirmedPassword: yup
       .string()
       .required('Confirmação de senha obrigatória'),
@@ -45,16 +45,15 @@ function Form({ bancoDados ,setBancoDados }){
     resolver: yupResolver(formSchema)
   })
 
-  const onSubmitFunction = (data) => {
+  const onSubmitFunction = ({name, email, password, bio, contact, course_module }) => {
+    const data = { name, email, password, bio, contact, course_module}
     setBancoDados(data)
-    console.log(bancoDados)
+    Api
+    .post('/users', data)
+    .then((response) => console.log(response.data))
+    .catch((err) => console.log(err))
   }
 
-  const handleSelect = (event) => { 
-    setValorSelect(event.target.value)
-  }
-  
-  console.log(valorSelect)
 
   return(
     <>
@@ -67,37 +66,38 @@ function Form({ bancoDados ,setBancoDados }){
       <FormCadastro onSubmit={ handleSubmit(onSubmitFunction)}>
 
         <label>Nome</label>
-        <InputForm placeholder={'Digite aqui seu nome'} register={register('name')}/>
         <span>{errors.name && errors.name.message}</span>
-
+        <InputForm placeholder={'Digite aqui seu nome'} register={register('name')}/>
+        
         <label>Email</label>
-        <InputForm placeholder={'Digite aqui seu email'} register={register('email')}/>
         <span>{errors.email && errors.email.message}</span>
+        <InputForm placeholder={'Digite aqui seu email'} register={register('email')}/>
 
         <label>Senha</label>
-        <InputForm placeholder={'Digite aqui sua senha'} register={register('password')}/>
         <span>{errors.password && errors.password.message}</span>
+        <InputForm placeholder={'Digite aqui sua senha'} register={register('password')}/>
 
         <label>Confirmar a senha</label>
-        <InputForm placeholder={'Digite novamente sua senha'} register={register('confirmedPassword')}/>
         <span>{errors.confirmedPassword && errors.confirmedPassword.message}</span>
+        <InputForm placeholder={'Digite novamente sua senha'} register={register('confirmedPassword')}/>
 
         <label>Bio</label>
-        <InputForm placeholder={'Fale sobre você'}register={register('bio')}/>
         <span>{errors.bio && errors.bio.message}</span>
+        <InputForm placeholder={'Fale sobre você'}register={register('bio')}/>
         
         <label>Contato</label>
-        <InputForm placeholder={'Opção de contato'} register={register('contact')}/>
         <span>{errors.contact && errors.contact.message}</span>
+        <InputForm placeholder={'Opção de contato'} register={register('contact')}/>
 
         <label>Selecionar módulo</label>
-        <select register={register('course_module')} onChange={ handleSelect }>
+        <span>{errors.course_module && errors.course_module.message}</span>
+
+        <select {...register('course_module')}>
           <option value='Primeiro Módulo (Introdução ao Front End)'>Primeiro Módulo</option>
           <option value='Segundo módulo (Frontend Avançado)'>Segundo Módulo</option>
           <option value='Terceiro módulo (Introdução ao Backend)'>Terceiro Módulo</option>
           <option value="Quarto módulo (Backend Avançado)">Quarto módulo</option>
         </select> 
-        <span>{errors.course_module && errors.course_module.message}</span>
 
         <Button color='true' type='submit'>Cadastrar</Button>
       </FormCadastro>

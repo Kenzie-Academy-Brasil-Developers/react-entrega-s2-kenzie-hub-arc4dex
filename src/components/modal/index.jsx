@@ -2,27 +2,56 @@ import { Background, Container } from "./styles"
 import InputForm from '../input'
 import Button from "../button"
 
-function Modal({titulo, tecnologia, placeholderTech, nivel}){
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import * as yup from 'yup';
+import Api from "../../services/api";
+import { useState } from "react";
+
+function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser, setTechsUser, onSubmitFunction, modal, setModal}){
+
+  const formSchema = yup.object().shape({
+    title: yup
+      .string()
+      .required('Tecnolgia Obrigatória'),
+    status: yup
+      .string()
+      .required('Status obrigatório'),
+  })
+
+  const { 
+    register, 
+    handleSubmit,
+    formState: { errors }, 
+  } = useForm({
+    resolver: yupResolver(formSchema)
+  })
+
+  function closeModal(){
+    setModal(false)
+  }
 
   return(
     <Background>
       <Container>
         <div>
           <h2>{titulo}</h2>
-          <button className="btnFecharModal">X</button>
+          <button className="btnFecharModal" onClick={closeModal}>X</button>
         </div>
-        <form>
+        <form onSubmit={ handleSubmit(onSubmitFunction) }>
           <label>{tecnologia}</label>
-          <InputForm placeholder = { placeholderTech }/>
+          <span>{errors.title && errors.title.message}</span>
+          <InputForm placeholder = { placeholderTech } register={register('title')}/>
 
           <label>{nivel}</label>
-          <select>
-            <option value='iniciante'>Iniciante</option>
-            <option value='intermediario'>Intermediário</option>
-            <option value='avançado'>Avançado</option>
+          <span>{errors.status && errors.status.message}</span>
+          <select {...register('status')}>
+            <option value='Iniciante'>Iniciante</option>
+            <option value='Intermediario'>Intermediário</option>
+            <option value='Avançado'>Avançado</option>
           </select>
 
-          <Button color='true'>Cadastrar</Button>
+          <Button color='true' type='submit'>{children}</Button>
         </form>
       </Container>
     </Background>

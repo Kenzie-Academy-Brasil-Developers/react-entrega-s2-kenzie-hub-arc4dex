@@ -12,7 +12,7 @@ export const CustomMenuItem = styled(MenuItem)`
 
 export const Container = styled.div`
   width: 23em;
-  height: 42em;
+  height: auto;
   
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@ export const Container = styled.div`
 
     text-align: left;
 
-    margin: 0;
+    margin-bottom: 3px;
   }
 
   select{

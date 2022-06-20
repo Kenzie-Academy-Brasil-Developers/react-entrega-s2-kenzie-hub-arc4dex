@@ -19,7 +19,7 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   width: 22.5em;
-  height: 310px;
+  height: auto;
 
   background-color: var(--grey3);
 
@@ -73,6 +73,17 @@ export const Container = styled.div`
 
     color: #F8F9FA;
 
+    margin-left: 5px;
+  }
+
+  span{
+    width: 98%;
+    color: #e63946;
+    font-size: 10px;
+
+    text-align: left;
+
+    margin-bottom: 3px;
     margin-left: 5px;
   }
 
