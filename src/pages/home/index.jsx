@@ -25,10 +25,9 @@ useEffect(() => {
   .get(`users/${userID}`)
   .then((res) => {
    setUsers(res.data)
+   setTechsUser(res.data.techs)
   })
 }, [])
-
-console.log(users)
 
 const onSubmitFunctionCadastro = ({title, status }) => {
   const techs = { title, status}
@@ -61,7 +60,7 @@ function openModal(){
       <button className="btnAdd" onClick={openModal}>+</button>
      </div>
       <Container>
-        <MiniCard techs={users.techs || []}/>
+        <MiniCard techs={techsUser|| []}/>
       </Container>
     </ContainerMain>
   )
