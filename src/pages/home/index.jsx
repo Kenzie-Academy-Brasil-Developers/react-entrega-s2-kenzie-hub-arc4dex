@@ -17,10 +17,7 @@ function Home(){
 useEffect(() => {
 
   const userID = JSON.parse(localStorage.getItem('@kenzieHub:id'))
-  const userToken = JSON.parse(localStorage.getItem('@kenzieHub:token'))
-  
-  console.log(userID)
-
+ 
   Api
   .get(`users/${userID}`)
   .then((res) => {
@@ -30,7 +27,7 @@ useEffect(() => {
 }, [])
 
 const onSubmitFunctionCadastro = ({title, status }) => {
-  const techs = { title, status}
+  const techs = { title, status }
 
   const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
 
@@ -43,7 +40,9 @@ const onSubmitFunctionCadastro = ({title, status }) => {
   })
   .then((response) => {
     setTechsUser(response.data)
-    console.log(response.data)})
+    console.log(response.data)
+    setModal(false)
+  })
   .catch((err) => console.log(err))
 }
 
@@ -60,7 +59,7 @@ function openModal(){
       <button className="btnAdd" onClick={openModal}>+</button>
      </div>
       <Container>
-        <MiniCard techs={techsUser|| []}/>
+        <MiniCard techs={techsUser|| []} setTechsUser = {setTechsUser}/>
       </Container>
     </ContainerMain>
   )

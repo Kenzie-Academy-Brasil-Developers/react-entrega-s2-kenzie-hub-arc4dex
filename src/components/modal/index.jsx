@@ -5,12 +5,8 @@ import Button from "../button"
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
-import Api from "../../services/api";
-import { useState } from "react";
 
-function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser, setTechsUser, onSubmitFunction, modal, setModal, setEditedTechModal, valorInputs}){
-
-  console.log(valorInputs)
+function Modal({titulo, tecnologia, placeholderTech, nivel, children, onSubmitFunction, modal, setModal, setEditedTechModal, valorInputs}){
 
   const formSchema = yup.object().shape({
     title: yup
@@ -51,7 +47,7 @@ function Modal({titulo, tecnologia, placeholderTech, nivel, children, techsUser,
 
           <label>{nivel}</label>
           <span>{errors.status && errors.status.message}</span>
-          <select value={valorInputs === undefined ? 'Iniciante' : valorInputs.status} {...register('status')}>
+          <select {...register('status')}>
             <option value='Iniciante'>Iniciante</option>
             <option value='Intermediario'>Intermediário</option>
             <option value='Avançado'>Avançado</option>

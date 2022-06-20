@@ -50,6 +50,9 @@ export const Container = styled.ul`
   img{
     max-width: 15px;
     
+    :hover{
+      background-color: blue;
+    }
   }
 
   :hover{
