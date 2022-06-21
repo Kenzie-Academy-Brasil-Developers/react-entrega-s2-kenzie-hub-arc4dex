@@ -5,8 +5,6 @@ function Register(){
 
   const [ bancoDados, setBancoDados ] = useState([])
 
-  console.log(bancoDados)
-
   return (
     <Form bancoDados = {bancoDados} setBancoDados = {setBancoDados}/>
   )

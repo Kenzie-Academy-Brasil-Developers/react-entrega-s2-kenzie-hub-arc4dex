@@ -14,12 +14,12 @@ import Api from "../../services/api";
 import { toast } from "react-toastify";
 
 
-function PageLogin({ authenticated, setAuthenticated, setStatus }){
+function PageLogin({ authenticated, setAuthenticated}){
  
   const history = useHistory()
 
   function handlePage(){
-    return history.push('/register')
+    return history.push('/')
   }
 
   const formSchema = yup.object().shape({
@@ -51,9 +51,9 @@ function PageLogin({ authenticated, setAuthenticated, setStatus }){
         localStorage.setItem('@kenzieHub:id', JSON.stringify(user.id))
         
         setAuthenticated(true)
-        console.log(response)
-        setStatus(response)
 
+        history.push('/dashboard')
+       
         setTimeout(() => {
           toast.success('Logado com sucesso')
         }, 1500);
@@ -66,7 +66,7 @@ function PageLogin({ authenticated, setAuthenticated, setStatus }){
       })
       .finally((_) => {
         if(authenticated){
-          history.push('/')
+          history.push('/dashboard')
         }
       })
   }

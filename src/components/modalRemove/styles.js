@@ -16,7 +16,6 @@ export const Background = styled.div`
 
   z-index: 101;
 `
-
 export const Container = styled.div`
   width: 22.5em;
   height: auto;
@@ -44,7 +43,6 @@ export const Container = styled.div`
     font-weight: 700;
 
     color: #F8F9FA;
-
   }
 
   .btnFecharModal{
@@ -55,15 +53,11 @@ export const Container = styled.div`
     background-color: transparent;
     
     border: none;
-    
   }
 
-  .containerBtns{
-    width: 100%;
-  }
-
-  .btnRemoved{
+  .btnExcluir{
     width: 45%;
+
     height: 2.7em;
 
     font-size: 16px;

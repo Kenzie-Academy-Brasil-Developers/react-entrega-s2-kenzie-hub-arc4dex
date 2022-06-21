@@ -6,51 +6,43 @@ import Api from '../../services/api'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Modal from '../../components/modal'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Redirect } from 'react-router-dom'
 import { toast } from "react-toastify";
 
-function Home( { authenticated, setAuthenticated } ){
+
+function Home({loadTechs, authenticated}){
 
   const history = useHistory()
 
   const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
-
-  if(!token) {
-    history.push('/login')
-  }
+  const idUser = JSON.parse(localStorage.getItem('@kenzieHub:id'))
 
   const [ users, setUsers ] = useState([])
   const [ techsUser, setTechsUser ] = useState([])
-
   const [ modal, setModal ] = useState(false)
 
 useEffect(() => {
+  loadTechs(setTechsUser)
 
-  const userID = JSON.parse(localStorage.getItem('@kenzieHub:id'))
- 
   Api
-  .get(`users/${userID}`)
-  .then((res) => {
-   setUsers(res.data)
-   setTechsUser(res.data.techs)
+    .get(`users/${idUser}`)
+    .then((res) => {
+      setUsers(res.data)
   })
 }, [])
 
-const onSubmitFunctionCadastro = ({title, status }) => {
-  const techs = { title, status }
 
+const onSubmitFunctionCadastro = (data) => {
 
   Api
-  .post(`users/techs`, techs, {
+  .post(`users/techs`, data, {
     headers: {
-    Authorization: `Bearer ${token}
-    `
+      Authorization: `Bearer ${token}`
     }
   })
   .then((response) => {
-    setTechsUser(response.data)
+    setTechsUser([...techsUser, response.data])
     toast.success('Tecnologia cadastrada com sucesso')
-    console.log(response.data)
     setModal(false)
   })
   .catch((err) => {
@@ -68,6 +60,12 @@ const handleClearLocalStore = () => {
   history.push('/login')
 }
 
+if(!authenticated) {
+  return (
+  <Redirect to='/login'/>
+  )
+}
+
   return(
     <ContainerMain>
     {modal && <Modal titulo={'Cadastrar Tecnologia'} tecnologia = {'Nome'} placeholderTech = {'Digite uma tecnolgia'} nivel={'Selecionar status'} children = {'Cadastrar Tecnologia'} techsUser = {techsUser} setTechsUser = {setTechsUser} onSubmitFunction={onSubmitFunctionCadastro} modal={modal} setModal={setModal}/>}
@@ -78,7 +76,7 @@ const handleClearLocalStore = () => {
       <button className="btnAdd" onClick={openModal}>+</button>
      </div>
       <Container>
-        <MiniCard techs={techsUser|| []} setTechsUser = {setTechsUser}/>
+        <MiniCard techs={techsUser} setTechsUser = {setTechsUser} loadTechs = {loadTechs}/>
       </Container>
     </ContainerMain>
   )

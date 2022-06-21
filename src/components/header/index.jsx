@@ -1,7 +1,7 @@
 import { ButtonLogin, Container } from "./styles";
 import Logo from "../../img/Logo.svg"
 
-function Header({children, width, functionBtn}){
+function Header({children, width, functionBtn, setUsers}){
 
   return(
     <>

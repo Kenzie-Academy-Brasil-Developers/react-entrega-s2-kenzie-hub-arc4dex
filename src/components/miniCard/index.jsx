@@ -7,7 +7,8 @@ import { Container } from "./styles"
 
 import { toast } from "react-toastify"
 
-function MiniCard( { techs, setTechsUser } ){
+
+function MiniCard( { techs, setTechsUser, loadTechs } ){
 
   const [editedTechModal, setEditedTechModal] = useState(false)
 
@@ -19,64 +20,42 @@ function MiniCard( { techs, setTechsUser } ){
 
   const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
 
-
+  
   function openModal(valorId, title, status){
     setEditedTechModal(true)
     setValorInputs({valorId, title, status})
     setValorIdTech(valorId)
   }
 
- 
-  const onSubmitFunctionAlteracao = ({ title, status }) => {
+  const onSubmitFunctionAlteracao = (data) => {
 
-    const techs = { title, status }
-    
     Api
-    .put(`users/techs/${valorInputs.valorId}`, techs, {
+    .put(`users/techs/${valorInputs.valorId}`, data, {
       headers: {
       Authorization: `Bearer ${token}
       `
       }
     })
-    .then((response) => {
-      setTechsUser(response.data)
-      console.log(response)
+    .then((_) => {
+      loadTechs(setTechsUser)
       setTimeout(() => {
         toast.success('Tecnologia atualizada')
-      }, 1500);
+        }, 1500);
     })
-    .catch((err) => {
+    .catch((_) => {
       toast.error('Tecnologia não atualizada')
-      console.log(err)
+      
     })
     .finally(()=>{
       setEditedTechModal(false)
     })
   }
 
-  const onSubmitFunctionRemoved = (techId) =>{
-    Api
-    .delete(`users/techs/${techId}`, {
-      headers: {
-      Authorization: `Bearer ${token}
-      `
-      }
-    })
-    .then((response) => {
-      setModalRemove(false)
-      toast.success('Tecnolgia removida')
-      console.log(response)
-    })
-    .catch((err) => {
-      toast.error('Tecnologia não removida')
-      console.log(err)
-    })
-  }
-
-  function excluirProduto(){
+  function excluirProduto(techId){
     setModalRemove(true)
+    setValorIdTech(techId)
   }
-
+  
   return(
     <>
         {techs.map((tech, key) => {
@@ -85,7 +64,7 @@ function MiniCard( { techs, setTechsUser } ){
 
             {editedTechModal && <Modal titulo={'Tecnologia Detalhes'} tecnologia = {'Nome do projeto'} nivel={'Status'} children = {'Salvar Alterações'} setEditedTechModal={setEditedTechModal} valorInputs={valorInputs} onSubmitFunction = { onSubmitFunctionAlteracao }/>}
 
-            {modalRemove && <ModalRemove setModalRemove={ setModalRemove } functionRemoved = {()=> onSubmitFunctionRemoved(tech.id)} />}
+            {modalRemove && <ModalRemove loadTechs = {loadTechs} setTechsUser = {setTechsUser} setModalRemove={ setModalRemove } valorId = { valorIdTech } techs = {techs}/>}
 
             <li onClick={ () => openModal(tech.id, tech.title, tech.status)}>
               <h2>{tech.title}</h2>
@@ -93,7 +72,7 @@ function MiniCard( { techs, setTechsUser } ){
                  <h3>{tech.status}</h3>
               </div>
             </li>
-            <img src={Trash} alt="Lixeira" onClick={excluirProduto}/>
+            <img src={Trash} alt="Lixeira" onClick={ () => excluirProduto(tech.id)}/>
           </Container>
         })} 
     </>

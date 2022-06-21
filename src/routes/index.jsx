@@ -5,6 +5,7 @@ import Register from "../pages/register";
 import Home from "../pages/home";
 import { useState } from "react";
 import { useEffect } from "react";
+import Api from "../services/api";
 
 
 function Routes(){
@@ -12,32 +13,36 @@ function Routes(){
   const history = useHistory()
 
   const [ authenticated, setAuthenticated ] = useState(false)
-
-  const [ status, setStatus ] = useState({status: 0})
-
+ 
   const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
+  const idUser = JSON.parse(localStorage.getItem('@kenzieHub:id'))
 
   useEffect(() => {
    
     if(token){
       setAuthenticated(true)
-      history.push('/')
+      history.push('/dashboard')
     }
+  }, [authenticated, history, token])
 
-  }, [authenticated])
-
-
+  function loadTechs(functionLoad){
+    Api
+    .get(`/users/${idUser}`)
+    .then((response) => {
+      functionLoad(response.data.techs)  
+    })
+  }
 
   return(
     <Switch>
-      <Route exact path='/register'>
+      <Route exact path='/'>
         <Register/>
       </Route>
-      <Route exact path='/'>
-        <Home authenticated = {authenticated} setAuthenticated = {authenticated} status = {status} setStatus = {setStatus} />
+      <Route path='/dashboard'>
+        <Home loadTechs = { loadTechs } authenticated = {authenticated} setAuthenticated = {authenticated} />
       </Route>
-      <Route>
-        <PageLogin setStatus = { setStatus } authenticated = { authenticated } setAuthenticated = { setAuthenticated } exact path='/login'/>
+      <Route path='/login'>
+        <PageLogin authenticated = { authenticated } setAuthenticated = { setAuthenticated }/>
       </Route>
     </Switch>
   )
