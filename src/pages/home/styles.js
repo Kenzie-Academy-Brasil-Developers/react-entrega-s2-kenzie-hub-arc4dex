@@ -25,6 +25,14 @@ export const ContainerMain = styled.div`
     margin-bottom: 15px;
   }
 
+  .containerUser{
+    width: 33%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .modulo{
     font-size: 10px;
     color: var(--grey1)
