@@ -1,8 +1,9 @@
 
 import { Background, Container } from "./styles"
 
-function ModalRemove({setModalRemove}){
+function ModalRemove({setModalRemove, functionRemoved}){
 
+  
 
   function fecharModal(){
     setModalRemove(false)
@@ -16,7 +17,7 @@ function ModalRemove({setModalRemove}){
           <button className="btnFecharModal" onClick={ fecharModal }>X</button>
         </div>
         <div className="containerBtns">
-          <button className="btnRemoved">Sim</button>
+          <button className="btnRemoved" onClick={ functionRemoved }>Sim</button>
           <button className="btnRemoved" onClick={ fecharModal }>Não</button>
         </div>
       </Container>

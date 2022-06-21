@@ -7,10 +7,17 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Modal from '../../components/modal'
 import { useHistory } from 'react-router-dom'
+import { toast } from "react-toastify";
 
-function Home(){
+function Home( { authenticated, setAuthenticated } ){
 
   const history = useHistory()
+
+  const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
+
+  if(!token) {
+    history.push('/login')
+  }
 
   const [ users, setUsers ] = useState([])
   const [ techsUser, setTechsUser ] = useState([])
@@ -32,7 +39,6 @@ useEffect(() => {
 const onSubmitFunctionCadastro = ({title, status }) => {
   const techs = { title, status }
 
-  const token = JSON.parse(localStorage.getItem('@kenzieHub:token'))
 
   Api
   .post(`users/techs`, techs, {
@@ -43,10 +49,14 @@ const onSubmitFunctionCadastro = ({title, status }) => {
   })
   .then((response) => {
     setTechsUser(response.data)
+    toast.success('Tecnologia cadastrada com sucesso')
     console.log(response.data)
     setModal(false)
   })
-  .catch((err) => console.log(err))
+  .catch((err) => {
+    toast.error('Erro ao cadastrar a tecnologia')
+    console.log(err)
+  })
 }
 
 function openModal(){
@@ -58,10 +68,10 @@ const handleClearLocalStore = () => {
   history.push('/login')
 }
 
-
   return(
     <ContainerMain>
     {modal && <Modal titulo={'Cadastrar Tecnologia'} tecnologia = {'Nome'} placeholderTech = {'Digite uma tecnolgia'} nivel={'Selecionar status'} children = {'Cadastrar Tecnologia'} techsUser = {techsUser} setTechsUser = {setTechsUser} onSubmitFunction={onSubmitFunctionCadastro} modal={modal} setModal={setModal}/>}
+
      <Header children='Sair' functionBtn={ handleClearLocalStore } width={'big'}/>
      <div className='containerUsuario'>
       <h2 className='BemVindo'>Olá, {users.name}</h2>

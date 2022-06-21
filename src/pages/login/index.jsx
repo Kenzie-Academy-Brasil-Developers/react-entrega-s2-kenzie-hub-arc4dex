@@ -11,10 +11,11 @@ import { FormCadastro } from "../../components/form/styles";
 import InputForm from "../../components/input";
 import { useHistory } from "react-router-dom";
 import Api from "../../services/api";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
-function PageLogin({ authenticated, setAuthenticated }){
 
+function PageLogin({ authenticated, setAuthenticated, setStatus }){
+ 
   const history = useHistory()
 
   function handlePage(){
@@ -51,19 +52,27 @@ function PageLogin({ authenticated, setAuthenticated }){
         
         setAuthenticated(true)
         console.log(response)
+        setStatus(response)
 
-        toast.success('Logado com sucesso')
-
+        setTimeout(() => {
+          toast.success('Logado com sucesso')
+        }, 1500);
+        
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        toast.error('Verifique os dados do login')
+        console.log(err)
+        setAuthenticated(false)
+      })
       .finally((_) => {
-        history.push('/')
+        if(authenticated){
+          history.push('/')
+        }
       })
   }
 
   return(
     <> 
-      <ToastContainer/>
       <ContainerImg>
       <img src={Logo} alt="Logo Kenzie Hub" />
       </ContainerImg>

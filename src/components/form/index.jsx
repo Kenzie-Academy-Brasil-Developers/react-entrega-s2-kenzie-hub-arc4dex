@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import Api from '../../services/api';
 import { useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
+
 
 function Form({ bancoDados ,setBancoDados }){
 
@@ -22,10 +24,12 @@ function Form({ bancoDados ,setBancoDados }){
       .required('Nome Obrigatório'),
     password: yup
       .string()
-      .required('Senha obrigatória'),
+      .required('Senha obrigatória')
+      .matches('([a-zA-Z0-9]{6,})', 'A senha precisa de no minimo 6 caracteres'),
     confirmedPassword: yup
       .string()
-      .required('Confirmação de senha obrigatória'),
+      .required('Confirmação de senha obrigatória')
+      .oneOf([yup.ref('password')], 'A senha deve ser a mesma'),
     email: yup
       .string().email()
       .required('Email obrigatório'),
@@ -55,9 +59,13 @@ function Form({ bancoDados ,setBancoDados }){
     .post('/users', data)
     .then((response) => {
       console.log(response.data)
+      toast.success('Cadastro realizado com sucesso')
       history.push('/login')
     }) 
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      toast.error('Erro ao realizar o cadastro')
+      console.log(err)
+    })
   }
 
   const handleHistory = () => {
@@ -84,11 +92,11 @@ function Form({ bancoDados ,setBancoDados }){
 
         <label>Senha</label>
         <span>{errors.password && errors.password.message}</span>
-        <InputForm placeholder={'Digite aqui sua senha'} register={register('password')}/>
+        <InputForm placeholder={'Digite aqui sua senha'} register={register('password')} type='password'/>
 
         <label>Confirmar a senha</label>
         <span>{errors.confirmedPassword && errors.confirmedPassword.message}</span>
-        <InputForm placeholder={'Digite novamente sua senha'} register={register('confirmedPassword')}/>
+        <InputForm placeholder={'Digite novamente sua senha'} register={register('confirmedPassword')} type='password'/>
 
         <label>Bio</label>
         <span>{errors.bio && errors.bio.message}</span>
