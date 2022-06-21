@@ -25,6 +25,11 @@ export const ContainerMain = styled.div`
     margin-bottom: 15px;
   }
 
+  .modulo{
+    font-size: 10px;
+    color: var(--grey1)
+  }
+
   .btnAdd{
     width:35px;
     height: 32px;

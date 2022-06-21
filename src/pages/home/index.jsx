@@ -72,7 +72,8 @@ if(!authenticated) {
 
      <Header children='Sair' functionBtn={ handleClearLocalStore } width={'big'}/>
      <div className='containerUsuario'>
-      <h2 className='BemVindo'>Olá, {users.name}</h2>
+      <h2 className='bemVindo'>Olá, {users.name}</h2>
+      <h3 className='modulo'> {users.course_module}</h3>
       <button className="btnAdd" onClick={openModal}>+</button>
      </div>
       <Container>
