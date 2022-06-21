@@ -11,6 +11,7 @@ import { FormCadastro } from "../../components/form/styles";
 import InputForm from "../../components/input";
 import { useHistory } from "react-router-dom";
 import Api from "../../services/api";
+import { toast, ToastContainer } from "react-toastify";
 
 function PageLogin({ authenticated, setAuthenticated }){
 
@@ -47,16 +48,22 @@ function PageLogin({ authenticated, setAuthenticated }){
 
         localStorage.setItem('@kenzieHub:token', JSON.stringify(token))
         localStorage.setItem('@kenzieHub:id', JSON.stringify(user.id))
-
+        
         setAuthenticated(true)
-        history.push('/')
         console.log(response)
+
+        toast.success('Logado com sucesso')
+
       })
       .catch((err) => console.log(err))
+      .finally((_) => {
+        history.push('/')
+      })
   }
 
   return(
-    <>
+    <> 
+      <ToastContainer/>
       <ContainerImg>
       <img src={Logo} alt="Logo Kenzie Hub" />
       </ContainerImg>

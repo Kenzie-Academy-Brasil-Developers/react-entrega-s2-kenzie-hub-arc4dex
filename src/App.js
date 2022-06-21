@@ -1,7 +1,6 @@
 import './App.css';
 import GlobalStyle from './styles/global'
 import Routes from './routes'
-import Modal from './components/modal'
 import { useState } from 'react';
 
 function App() {

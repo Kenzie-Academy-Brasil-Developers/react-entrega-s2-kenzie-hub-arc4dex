@@ -66,7 +66,7 @@ function Form({ bancoDados ,setBancoDados }){
 
   return(
     <>
-    <Header children='Login' functionBtn={ handleHistory }/>
+    <Header children='Login' functionBtn={ handleHistory } width={'small'}/>
     <Container>
       <div>
         <h1>Crie sua Conta</h1>

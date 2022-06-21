@@ -24,7 +24,7 @@ function Routes(){
         <Register/>
       </Route>
       <Route exact path='/'>
-        <Home/>
+        { authenticated && <Home/>}
       </Route>
       <Route>
         <PageLogin authenticated = { authenticated } setAuthenticated = { setAuthenticated } exact path='/login'/>

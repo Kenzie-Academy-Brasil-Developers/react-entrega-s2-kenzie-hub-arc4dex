@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 23em;
+  width: ${(props) => (props.width === 'small' ? '23em' : '48em') };
   
   display: flex;
   justify-content: space-between;

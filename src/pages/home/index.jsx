@@ -62,7 +62,7 @@ const handleClearLocalStore = () => {
   return(
     <ContainerMain>
     {modal && <Modal titulo={'Cadastrar Tecnologia'} tecnologia = {'Nome'} placeholderTech = {'Digite uma tecnolgia'} nivel={'Selecionar status'} children = {'Cadastrar Tecnologia'} techsUser = {techsUser} setTechsUser = {setTechsUser} onSubmitFunction={onSubmitFunctionCadastro} modal={modal} setModal={setModal}/>}
-     <Header children='Sair' functionBtn={ handleClearLocalStore }/>
+     <Header children='Sair' functionBtn={ handleClearLocalStore } width={'big'}/>
      <div className='containerUsuario'>
       <h2 className='BemVindo'>Olá, {users.name}</h2>
       <button className="btnAdd" onClick={openModal}>+</button>
