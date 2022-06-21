@@ -1,21 +1,12 @@
 import { ButtonLogin, Container } from "./styles";
 import Logo from "../../img/Logo.svg"
-import { useHistory } from "react-router-dom";
 
-function Header({children, width, props}){
-
-  const history = useHistory()
-
-  const handleHistory = () => {
-   if(props === 'login'){
-    return history.push('/login')
-   } 
-}
+function Header({children, width, functionBtn}){
 
   return(
     <Container>
       <img src={Logo} alt="Logo Kenzie Hub" />
-      <ButtonLogin onClick = {handleHistory}>
+      <ButtonLogin onClick = { functionBtn }>
         {children}
       </ButtonLogin>
     </Container>

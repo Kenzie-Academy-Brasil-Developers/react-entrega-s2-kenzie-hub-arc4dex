@@ -10,8 +10,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import Api from '../../services/api';
+import { useHistory } from 'react-router-dom';
 
 function Form({ bancoDados ,setBancoDados }){
+
+  const history = useHistory()
 
   const formSchema = yup.object().shape({
     name: yup
@@ -50,14 +53,20 @@ function Form({ bancoDados ,setBancoDados }){
     setBancoDados(data)
     Api
     .post('/users', data)
-    .then((response) => console.log(response.data))
+    .then((response) => {
+      console.log(response.data)
+      history.push('/login')
+    }) 
     .catch((err) => console.log(err))
   }
 
+  const handleHistory = () => {
+    return history.push('/login')
+  }
 
   return(
     <>
-    <Header children='Login' props={'login'}/>
+    <Header children='Login' functionBtn={ handleHistory }/>
     <Container>
       <div>
         <h1>Crie sua Conta</h1>

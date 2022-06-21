@@ -20,14 +20,14 @@ function Routes(){
 
   return(
     <Switch>
-      <Route exact path='/'>
-        <Home/>
-      </Route>
       <Route exact path='/register'>
         <Register/>
       </Route>
+      <Route exact path='/'>
+        <Home/>
+      </Route>
       <Route>
-        <PageLogin authenticated = {authenticated} setAuthenticated = { setAuthenticated } exact path='/login'/>
+        <PageLogin authenticated = { authenticated } setAuthenticated = { setAuthenticated } exact path='/login'/>
       </Route>
     </Switch>
   )

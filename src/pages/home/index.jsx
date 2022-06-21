@@ -6,8 +6,11 @@ import Api from '../../services/api'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Modal from '../../components/modal'
+import { useHistory } from 'react-router-dom'
 
 function Home(){
+
+  const history = useHistory()
 
   const [ users, setUsers ] = useState([])
   const [ techsUser, setTechsUser ] = useState([])
@@ -50,10 +53,16 @@ function openModal(){
   setModal(true)
 }
 
+const handleClearLocalStore = () => {
+  localStorage.clear()
+  history.push('/login')
+}
+
+
   return(
     <ContainerMain>
     {modal && <Modal titulo={'Cadastrar Tecnologia'} tecnologia = {'Nome'} placeholderTech = {'Digite uma tecnolgia'} nivel={'Selecionar status'} children = {'Cadastrar Tecnologia'} techsUser = {techsUser} setTechsUser = {setTechsUser} onSubmitFunction={onSubmitFunctionCadastro} modal={modal} setModal={setModal}/>}
-     <Header children='Sair'/>
+     <Header children='Sair' functionBtn={ handleClearLocalStore }/>
      <div className='containerUsuario'>
       <h2 className='BemVindo'>Olá, {users.name}</h2>
       <button className="btnAdd" onClick={openModal}>+</button>
